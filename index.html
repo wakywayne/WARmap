@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
 
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-    <div id='map' style='width: 400px; height: 300px;'></div>
+  <body>
+    <div id="map" style="width: 800px; height: 600px"></div>
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiY29hY2h3YXluZSIsImEiOiJja3I1OXQxNGkzM29yMm9vOGo4MXlkaWt5In0.hr4oQDHbSpnOwwYOVLPvug';
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11'
-        });
-    </script>
-</body>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiY29hY2h3YXluZSIsImEiOiJja3I1OXQxNGkzM29yMm9vOGo4MXlkaWt5In0.hr4oQDHbSpnOwwYOVLPvug";
+      var map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: [-102, 40.722335],
+        zoom: 3,
+      });
 
+      let marker = new mapboxgl.Marker().setLngLat([-117, 32]).addTo(map);
+      let floridaEventTest = new mapboxgl.Marker()
+        .setLngLat([-82.432, 28.2])
+        .setPopup(
+          new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML("<h3>" + "yes" + "</h3><p>" + "no" + "</p>")
+        )
+        .addTo(map);
+    </script>
+  </body>
 </html>
