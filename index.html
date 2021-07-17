@@ -14,25 +14,85 @@
   </head>
 
   <body>
+    <label for="">Show me all of the upcoming WAR Zones between: </label>
+    <input id="dateInput1" type="date" />
+    <label> and </label>
+    <input id="dateInput2" type="date" />
+    <button id="theButton" onclick="getEvents()">Ok... show them to me!</button>
     <div id="map" style="width: 800px; height: 600px"></div>
     <script>
+      let eventList = [
+        {
+          name: "the battle",
+          date: "2021-01-01",
+          location: [-81, 28],
+          url: "https://google.com",
+        },
+        {
+          name: "the other battle",
+          date: "2021-01-08",
+          location: [-80, 27],
+          url: "https://yahoo.com",
+        },
+        {
+          name: "my house",
+          date: "2021-07-18",
+          location: [-73.49907, 40.72002],
+          url: "https://jasonlaytonsawesomelife.com",
+        },
+      ];
+
       mapboxgl.accessToken =
         "pk.eyJ1IjoiY29hY2h3YXluZSIsImEiOiJja3I1OXQxNGkzM29yMm9vOGo4MXlkaWt5In0.hr4oQDHbSpnOwwYOVLPvug";
-      var map = new mapboxgl.Map({
+      let map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
-        center: [-102, 40.722335],
-        zoom: 3,
+        center: [-96, 40.722335],
+        zoom: 3.25,
       });
 
-      let marker = new mapboxgl.Marker().setLngLat([-117, 32]).addTo(map);
-      let floridaEventTest = new mapboxgl.Marker()
-        .setLngLat([-82.432, 28.2])
-        .setPopup(
-          new mapboxgl.Popup({ offset: 25 }) // add popups
-            .setHTML("<h3>" + "yes" + "</h3><p>" + "no" + "</p>")
-        )
-        .addTo(map);
+      let today = new Date().toISOString().split("T")[0];
+
+      //we start by listing all of the upcoming events on the map
+      for (let x = 0; x < eventList.length; x++) {
+        if (eventList[x].date >= today) {
+          new mapboxgl.Marker({ color: "purple" })
+            .setLngLat(eventList[x].location)
+            .setPopup(
+              new mapboxgl.Popup({ offset: 25 }) // add popups
+                .setHTML(
+                  `<h3>${eventList[x].name}</h3><h4>${eventList[x].date}</h4><a href=${eventList[x].url}>click for event details</a>`
+                )
+            )
+            .addTo(map);
+        }
+      }
+
+      // the customer can press the button to only show events between specified dates
+      let getEvents = () => {
+        let date1 = document.getElementById("dateInput1").value;
+        let date2 = document.getElementById("dateInput2").value;
+        map.remove();
+        map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/mapbox/streets-v11",
+          center: [-97, 40.722335],
+          zoom: 3,
+        });
+        for (let x = 0; x < eventList.length; x++) {
+          if (eventList[x].date >= date1 && eventList[x].date <= date2) {
+            new mapboxgl.Marker({ color: "green" })
+              .setLngLat(eventList[x].location)
+              .setPopup(
+                new mapboxgl.Popup({ offset: 25 }) // add popups
+                  .setHTML(
+                    `<h3>${eventList[x].name}</h3><h4>${eventList[x].date}</h4><a href=${eventList[x].url}>click for event details</a>`
+                  )
+              )
+              .addTo(map);
+          }
+        }
+      };
     </script>
   </body>
 </html>
