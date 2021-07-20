@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
       rel="stylesheet"
     />
@@ -23,19 +29,33 @@
         padding: 0;
       }
     </style>
-    <h2>
-      <label for="">Show me all of the upcoming WAR Zones between: </label>
-    </h2>
-    <input id="dateInput1" type="date" />
-    <label> and </label>
-    <input id="dateInput2" type="date" />
-    <button id="theButton" onclick="getEvents()">Ok... show them to me!</button>
+    <h1>All future WAR Zones:</h1>
+    <h3>Click on an event to see further details!</h3>
     <div id="map" style="width: 100%; height: 400px"></div>
+    <h5>
+      <strong>
+        <label for="">Show me all of the upcoming WAR Zones between </label>
+
+        <input id="dateInput1" type="date" />
+        <label> and </label>
+        <input id="dateInput2" type="date" />
+
+        <button class="btn btn-primary" id="theButton" onclick="getEvents()">
+          Ok... show them to me!
+        </button>
+      </strong>
+    </h5>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
     <script>
       let eventList = [
         {
           name: "WAR Zone at New England Gold #2",
           date: "2021-07-24",
+          address: "842 Upper Union Street Franklin MA",
           location: [-71.39364532928666, 42.06056832361408],
           url:
             "https://www.wellruntournaments.com/7-24-2021-warzone-at-new-england-gold-2/",
@@ -43,6 +63,8 @@
         {
           name: "WAR Zone at Rev #7",
           date: "2021-07-25",
+          address:
+            "MI Revolution Training Center – 560 W. Highland Rd, Highland, MI 48357",
           location: [-83.62387655810528, 42.64291534371152],
           url:
             "https://www.wellruntournaments.com/7-25-2021-sunday-war-zone-rev-7/",
@@ -50,6 +72,8 @@
         {
           name: "WAR Zone at Wesley Chapel",
           date: "2021-07-25",
+          address:
+            "Land O Lakes Recreation Center, 3032 Collier Parkway, Land O Lakes, FL 34639",
           location: [-82.4323511063095, 28.19972317574855],
           url:
             "https://www.wellruntournaments.com/7-25-21-the-warzone-wesley-chapel/",
@@ -57,6 +81,7 @@
         {
           name: "WAR Zone at Raw ATC",
           date: "2021-08-07",
+          address: "245 Esten ave Pawtucket RI",
           location: [-71.40218582929221, 41.86203085737668],
           url: "https://www.wellruntournaments.com/7-10-21-warzone-raw-atc/",
         },
@@ -64,6 +89,7 @@
           name:
             "The Alpha Girls and Dynamic Wrestling present: Girls WAR Zone Wrestling Competition",
           date: "2021-08-07",
+          address: "415 Oser Ave, Suite H, Hauppauge, NY 11788",
           location: [-73.26715440048595, 40.81634041396066],
           url:
             "https://www.wellruntournaments.com/2021/04/30/8-7-2021-the-alpha-girls-and-dynamic-wrestling-present-girls-war-zone-wrestling-competition/",
@@ -71,6 +97,7 @@
         {
           name: "WAR Zone at Dynamic #12",
           date: "2021-08-08",
+          address: "415 Oser Ave, Suite H, Hauppauge, NY 11788",
           location: [-73.26715440048595, 40.81634041396066],
           url:
             "https://www.wellruntournaments.com/2021/02/22/8-8-2021-war-zone-12-dynamic/",
@@ -78,6 +105,7 @@
         {
           name: "WAR Zone at Total Turf #1",
           date: "2021-08-15",
+          address: "Total Turf 614 Lambs Rd, Pitman NJ, 08071",
           location: [-75.14514552565993, 39.739494229418405],
           url:
             "https://www.wellruntournaments.com/2021/02/22/8-8-2021-war-zone-12-dynamic/",
@@ -85,6 +113,7 @@
         {
           name: "Affordable Duels at Dynamic",
           date: "2021-01-01",
+          address: "415 Oser Ave, Suite H, Hauppauge, NY 11788",
           location: [-73.26715440048595, 40.81634041396066],
           url:
             "https://www.wellruntournaments.com/affordable-duals-at-dynamic-in-hauppauge-ny/",
@@ -92,6 +121,7 @@
         {
           name: "WAR Zone at La Bombonera #1",
           date: "2021-08-28",
+          address: "314 Bay W Blvd, New Castle, DE 19720",
           location: [-75.59442994411177, 39.646283461379795],
           url:
             "https://www.wellruntournaments.com/8-28-2021-war-zone-la-bombonera-2/",
@@ -99,6 +129,7 @@
         {
           name: "WAR Zone at Carmel Sports",
           date: "2021-09-04",
+          address: "111 Old Rte 6, Carmel Hamlet, NY 10512",
           location: [-73.65723932671771, 41.41190197366361],
           url:
             "https://www.wellruntournaments.com/9-4-21-war-zone-carmel-sports/",
@@ -106,12 +137,14 @@
         {
           name: "WAR Zone at New England Gold #3",
           date: "2021-09-18",
+          address: "842 Upper Union Street Franklin MA",
           location: [-71.39364532928666, 42.06056832361408],
           url: "https://www.wellruntournaments.com/4237-2/",
         },
         {
           name: "WAR Zone at Dynamic #13",
           date: "2021-09-19",
+          address: "415 Oser Ave, Suite H, Hauppauge, NY 11788",
           location: [-73.26715440048595, 40.81634041396066],
           url:
             "https://www.wellruntournaments.com/2021/02/22/9-19-2021-war-zone-13-dynamic/",
@@ -119,6 +152,7 @@
         {
           name: "WAR Zone at Total Turf #2",
           date: "2021-09-25",
+          address: "Total Turf 614 Lambs Rd, Pitman NJ, 08071",
           location: [-75.14514552565993, 39.739494229418405],
           url:
             "https://www.wellruntournaments.com/9-25-2021-war-zone-total-turf-2/",
@@ -126,6 +160,7 @@
         {
           name: "WAR Zone at NY Fit Fest",
           date: "2021-09-25",
+          address: "Long Beach, NY 11561",
           location: [-73.65751380564772, 40.58844118379961],
           url:
             "https://www.wellruntournaments.com/9-25-2021-war-zone-ny-fit-fest/",
@@ -133,6 +168,7 @@
         {
           name: "WAR Zone at La Bombonera #2",
           date: "2021-10-02",
+          address: "314 Bay W Blvd, New Castle, DE 19720",
           location: [-75.59442994411177, 39.646283461379795],
           url:
             "https://www.wellruntournaments.com/8-28-2021-war-zone-la-bombonera-2/",
@@ -140,6 +176,7 @@
         {
           name: "WAR Zone at Metuchen Sports Center #1",
           date: "2021-10-03",
+          address: "302 HIGH STREET METUCHEN, NJ",
           location: [-74.37314035654786, 40.53332966294376],
           url:
             "https://www.wellruntournaments.com/10-3-2021-war-zone-metuchen-sports-center-1/",
@@ -147,6 +184,8 @@
         {
           name: "WAR Zone Panhandle Preseason Kickoff",
           date: "2021-10-16",
+          address:
+            "Florida State University School – 3000 schoolhouse road, Tallahassee FL 32311",
           location: [-84.22243944306271, 30.384050747604494],
           url:
             "https://www.wellruntournaments.com/10-23-21-panhandle-preseason-kickoff/",
@@ -154,6 +193,7 @@
         {
           name: "WAR Zone at Dynamic #14",
           date: "2021-10-17",
+          address: "415 Oser Ave, Suite H, Hauppauge, NY 11788",
           location: [-73.26715440048595, 40.81634041396066],
           url:
             "https://www.wellruntournaments.com/2021/02/22/10-17-2021-war-zone-14-dynamic/",
@@ -161,12 +201,14 @@
         {
           name: "WAR Zone at Total Turf #3",
           date: "2021-11-06",
+          address: "Total Turf 614 Lambs Rd, Pitman NJ, 08071",
           location: [-75.14514552565993, 39.739494229418405],
           url: "https://www.wellruntournaments.com/4104-2/",
         },
         {
           name: "WAR Zone at Metuchen Sports Center #2",
           date: "2021-11-21",
+          address: "302 HIGH STREET METUCHEN, NJ",
           location: [-74.37314035654786, 40.53332966294376],
           url:
             "https://www.wellruntournaments.com/11-21-2021-war-zone-metuchen-sports-center-2/",
@@ -174,12 +216,15 @@
         {
           name: "WAR Zone at New England Gold #4",
           date: "2021-12-04",
+          address: "842 Upper Union Street Franklin MA",
           location: [-71.39364532928666, 42.06056832361408],
           url: "https://www.wellruntournaments.com/4241-2/",
         },
         {
           name: "WAR Zone at Kings Park #3",
           date: "2021-12-19",
+          address:
+            "William T Rogers Middle School, 97 Old Dock Rd, Kings Park, NY 11754",
           location: [-73.24999207349386, 40.890566338192755],
           url:
             "https://www.wellruntournaments.com/12-19-2021-war-zone-kings-park-3/",
@@ -187,164 +232,8 @@
         {
           name: "WAR Zone at Kings Park #4",
           date: "2022-01-06",
-          location: [-73.24999207349386, 40.890566338192755],
-          url:
-            "https://www.wellruntournaments.com/1-16-2022-war-zone-kings-park-4/",
-        },
-        {
-          name: "WAR Zone at New England Gold #2",
-          date: "2021-07-24",
-          location: [-71.39364532928666, 42.06056832361408],
-          url:
-            "https://www.wellruntournaments.com/7-24-2021-warzone-at-new-england-gold-2/",
-        },
-        {
-          name: "WAR Zone at Rev #7",
-          date: "2021-07-25",
-          location: [-83.62387655810528, 42.64291534371152],
-          url:
-            "https://www.wellruntournaments.com/7-25-2021-sunday-war-zone-rev-7/",
-        },
-        {
-          name: "WAR Zone at Wesley Chapel",
-          date: "2021-07-25",
-          location: [-82.4323511063095, 28.19972317574855],
-          url:
-            "https://www.wellruntournaments.com/7-25-21-the-warzone-wesley-chapel/",
-        },
-        {
-          name: "WAR Zone at Raw ATC",
-          date: "2021-08-07",
-          location: [-71.40218582929221, 41.86203085737668],
-          url: "https://www.wellruntournaments.com/7-10-21-warzone-raw-atc/",
-        },
-        {
-          name:
-            "The Alpha Girls and Dynamic Wrestling present: Girls WAR Zone Wrestling Competition",
-          date: "2021-08-07",
-          location: [-73.26715440048595, 40.81634041396066],
-          url:
-            "https://www.wellruntournaments.com/2021/04/30/8-7-2021-the-alpha-girls-and-dynamic-wrestling-present-girls-war-zone-wrestling-competition/",
-        },
-        {
-          name: "WAR Zone at Dynamic #12",
-          date: "2021-08-08",
-          location: [-73.26715440048595, 40.81634041396066],
-          url:
-            "https://www.wellruntournaments.com/2021/02/22/8-8-2021-war-zone-12-dynamic/",
-        },
-        {
-          name: "WAR Zone at Total Turf #1",
-          date: "2021-08-15",
-          location: [-75.14514552565993, 39.739494229418405],
-          url:
-            "https://www.wellruntournaments.com/2021/02/22/8-8-2021-war-zone-12-dynamic/",
-        },
-        {
-          name: "Affordable Duels at Dynamic",
-          date: "2021-01-01",
-          location: [-73.26715440048595, 40.81634041396066],
-          url:
-            "https://www.wellruntournaments.com/affordable-duals-at-dynamic-in-hauppauge-ny/",
-        },
-        {
-          name: "WAR Zone at La Bombonera #1",
-          date: "2021-08-28",
-          location: [-75.59442994411177, 39.646283461379795],
-          url:
-            "https://www.wellruntournaments.com/8-28-2021-war-zone-la-bombonera-2/",
-        },
-        {
-          name: "WAR Zone at Carmel Sports",
-          date: "2021-09-04",
-          location: [-73.65723932671771, 41.41190197366361],
-          url:
-            "https://www.wellruntournaments.com/9-4-21-war-zone-carmel-sports/",
-        },
-        {
-          name: "WAR Zone at New England Gold #3",
-          date: "2021-09-18",
-          location: [-71.39364532928666, 42.06056832361408],
-          url: "https://www.wellruntournaments.com/4237-2/",
-        },
-        {
-          name: "WAR Zone at Dynamic #13",
-          date: "2021-09-19",
-          location: [-73.26715440048595, 40.81634041396066],
-          url:
-            "https://www.wellruntournaments.com/2021/02/22/9-19-2021-war-zone-13-dynamic/",
-        },
-        {
-          name: "WAR Zone at Total Turf #2",
-          date: "2021-09-25",
-          location: [-75.14514552565993, 39.739494229418405],
-          url:
-            "https://www.wellruntournaments.com/9-25-2021-war-zone-total-turf-2/",
-        },
-        {
-          name: "WAR Zone at NY Fit Fest",
-          date: "2021-09-25",
-          location: [-73.65751380564772, 40.58844118379961],
-          url:
-            "https://www.wellruntournaments.com/9-25-2021-war-zone-ny-fit-fest/",
-        },
-        {
-          name: "WAR Zone at La Bombonera #2",
-          date: "2021-10-02",
-          location: [-75.59442994411177, 39.646283461379795],
-          url:
-            "https://www.wellruntournaments.com/8-28-2021-war-zone-la-bombonera-2/",
-        },
-        {
-          name: "WAR Zone at Metuchen Sports Center #1",
-          date: "2021-10-03",
-          location: [-74.37314035654786, 40.53332966294376],
-          url:
-            "https://www.wellruntournaments.com/10-3-2021-war-zone-metuchen-sports-center-1/",
-        },
-        {
-          name: "WAR Zone Panhandle Preseason Kickoff",
-          date: "2021-10-16",
-          location: [-84.22243944306271, 30.384050747604494],
-          url:
-            "https://www.wellruntournaments.com/10-23-21-panhandle-preseason-kickoff/",
-        },
-        {
-          name: "WAR Zone at Dynamic #14",
-          date: "2021-10-17",
-          location: [-73.26715440048595, 40.81634041396066],
-          url:
-            "https://www.wellruntournaments.com/2021/02/22/10-17-2021-war-zone-14-dynamic/",
-        },
-        {
-          name: "WAR Zone at Total Turf #3",
-          date: "2021-11-06",
-          location: [-75.14514552565993, 39.739494229418405],
-          url: "https://www.wellruntournaments.com/4104-2/",
-        },
-        {
-          name: "WAR Zone at Metuchen Sports Center #2",
-          date: "2021-11-21",
-          location: [-74.37314035654786, 40.53332966294376],
-          url:
-            "https://www.wellruntournaments.com/11-21-2021-war-zone-metuchen-sports-center-2/",
-        },
-        {
-          name: "WAR Zone at New England Gold #4",
-          date: "2021-12-04",
-          location: [-71.39364532928666, 42.06056832361408],
-          url: "https://www.wellruntournaments.com/4241-2/",
-        },
-        {
-          name: "WAR Zone at Kings Park #3",
-          date: "2021-12-19",
-          location: [-73.24999207349386, 40.890566338192755],
-          url:
-            "https://www.wellruntournaments.com/12-19-2021-war-zone-kings-park-3/",
-        },
-        {
-          name: "WAR Zone at Kings Park #4",
-          date: "2022-01-06",
+          address:
+            "William T Rogers Middle School, 97 Old Dock Rd, Kings Park, NY 11754",
           location: [-73.24999207349386, 40.890566338192755],
           url:
             "https://www.wellruntournaments.com/1-16-2022-war-zone-kings-park-4/",
@@ -361,21 +250,21 @@
       });
       /* this portion uses geolocation to track the user and zoom in on them, but they need to click a small button first, and it doesn't seem to work well for the purposes I had in mind. It would be nice if the map loaded showing a 100 mile radius of where the user was located.
 
-      // Initialize the geolocate control.
-      var geolocate = new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        trackUserLocation: true,
-      });
-      // Add the control to the map.
-      map.addControl(geolocate);
-      // Set an event listener that fires
-      // when a geolocate event occurs.
-      geolocate.on("geolocate", function () {
-        console.log("A geolocate event has occurred.");
-      });
-*/
+            // Initialize the geolocate control.
+            var geolocate = new mapboxgl.GeolocateControl({
+              positionOptions: {
+                enableHighAccuracy: true,
+              },
+              trackUserLocation: true,
+            });
+            // Add the control to the map.
+            map.addControl(geolocate);
+            // Set an event listener that fires
+            // when a geolocate event occurs.
+            geolocate.on("geolocate", function () {
+              console.log("A geolocate event has occurred.");
+            });
+      */
       let today = new Date().toISOString().split("T")[0];
 
       //we start by listing all of the upcoming events on the map
@@ -394,7 +283,7 @@
             .setPopup(
               new mapboxgl.Popup({ offset: 25 }) // add popups
                 .setHTML(
-                  `<h3>Event: ${eventList[x].name}</h3><h4>Date: ${eventList[x].date}</h4><h2><a href=${eventList[x].url}>click for event details</a></h2>`
+                  `<h3>Event: ${eventList[x].name}</h3><h4>Date: ${eventList[x].date}</h4><h4>Location: ${eventList[x].address}</h4><h2><a href=${eventList[x].url}>click for event details</a></h2>`
                 )
             )
             .addTo(map);
@@ -426,7 +315,7 @@
               .setPopup(
                 new mapboxgl.Popup({ offset: 25 }) // add popups
                   .setHTML(
-                    `<h3>Event: ${eventList[x].name}</h3><h4>Date: ${eventList[x].date}</h4><h3><a href=${eventList[x].url}>click for event details</a></h3>`
+                    `<h3>Event: ${eventList[x].name}</h3><h4>Date: ${eventList[x].date}</h4><h4>Location: ${eventList[x].address}</h4><h2><a href=${eventList[x].url}>click for event details</a></h2>`
                   )
               )
               .addTo(map);
@@ -434,6 +323,5 @@
         }
       };
     </script>
-    <h2>Click on an event to see further details!</h2>
   </body>
 </html>
